@@ -12,7 +12,7 @@
   "author": "Neckaros <arnaud@jezequel.org>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/neckaros/decorated-merger"
   },
   "license": "MIT",
   "engines": {
