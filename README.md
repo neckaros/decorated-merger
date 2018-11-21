@@ -49,6 +49,38 @@ export class Person {
     }
 }
 
+export const getTestCar = () => {
+  const car = new Car()
+  car.id = 'test'
+  car.model = 'Model 3'
+  car.creator = 'Elon'
+  car.price = 30000
+  return car
+}
+
+export const getElecticCar = () => {
+  const car = new ElectricCar()
+  car.id = 'electric'
+  car.model = 'Model 3'
+  car.creator = 'Elon'
+  car.price = 30000
+  car.percent = 50
+  return car
+}
+export const getTransformerCar = () => {
+  const car = new TransformerCar()
+  car.id = 'transformer'
+  car.creator = 'Elon'
+  car.model = 'Model 3'
+  car.price = 30000
+  car.surename = 'billy'
+  return car
+}
+
+export const getPersonA = () => new Person('a', 'A', 'toto', 'middlea')
+export const getPersonB = () => new Person('b', 'B', 'toto', 'middleb')
+
+
 it("Two simple class should merge", () => {
     const car = getTestCar();
     const carNew = getTestCar();
