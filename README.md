@@ -1,8 +1,6 @@
 # Decorated Merged
 
-A very simple package to merge to object respecting decoration in any.
-
-![](https://i.imgur.com/opUmHp0.png)
+A very simple package to merge to object respecting decoration if any.
 
 ### Usage
 
