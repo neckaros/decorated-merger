@@ -125,7 +125,7 @@
     "typescript": "^3.0.3",
     "travis-deploy-once": "^5.0.9"
   },
-  "peerDependencies": {
+  "Dependencies": {
     "reflect-metadata": "^0.1.12"
   }
 }
