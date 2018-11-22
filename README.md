@@ -1,11 +1,9 @@
+[![Build Status](https://travis-ci.org/neckaros/decorated-merger.svg?branch=master)](https://travis-ci.org/neckaros/decorated-merger)
+[![Coverage Status](https://coveralls.io/repos/github/neckaros/decorated-merger/badge.svg?branch=master)](https://coveralls.io/github/neckaros/decorated-merger?branch=master)
+
 # Decorated Merged
 
 A very simple package to merge to object respecting decoration if any.
-
-### Usage
-
-TBD
-Still in early stage
 
 ### Features
 
@@ -13,11 +11,109 @@ Still in early stage
  - Define group of decorators to have different option at runtime
  - Define Equatable function with decorator to properly merge arrays
 
-### TODO
+## Usage
+
+### Merger
+Merger function will **merge** all _newObject_ properties **into** the source _object_ merging arrays and sub-objects, respecting all the decorators below.
+ ```typescript
+    merger(newObject, object); // will merge properties of newObject in object
+```
+### Decorators
+ - **@Exclude** at **class level** it will exclude all the class properties by default. The one yo want to merge will need to be set with the **@Include** decorator. Ex:
+ ```typescript
+@Exclude()
+export class Person {
+    id: string;
+    firstname: string;
+    lastname: string;
+    @Include()
+    status: string;
+    constructor(id: string, lastname: string, firstname: string, status: string) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.status = status;
+    }
+}
+ ```
+Only status from the new object will be merged into the source object
+
+ - **@Exclude** at **property level** it will exclude only this property. Ex:
+ ```typescript
+export class Person {
+    @Exclude()
+    id: string;
+    firstname: string;
+    lastname: string;
+    status: string;
+    constructor(id: string, lastname: string, firstname: string, status: string) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.status = status;
+    }
+}
+ ```
+All properties except ID of the new object will be merged into the source object
+
+ - **Groups** You can specify a group at the decorater level and in the merger to specify different behaviours. Ex:
+ ```typescript
+@Exclude()
+export class Person {
+    id: string;
+    @Include({group: 'admin'}))
+    firstname: string;
+    @Include({group: 'admin'}))
+    lastname: string;
+    @Include()
+    status: string;
+    constructor(id: string, lastname: string, firstname: string, status: string) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.status = status;
+    }
+}
+ ```
+If you call without group option:
+```typescript
+merger(newObject, object);
+ ```
+ only status will be merged in object
+If you call with group admin option:
+```typescript
+merger(newObject, object, {group: 'admin'});
+ ```
+ lastname, firstame and status will be merged in new object
+
+
+ - **Equatable** Allow you to specify if new object should be merged with an existing object in the array or if the object should be appended to the array. Ex:
+ ```typescript
+ @Equatable<Car>({equal: (a, b) => a.id === b.id})
+export class Car {
+    id: string
+    model: string;
+}
+export class Person {
+    @Exclude()
+    id: string;
+    firstname: string;
+    lastname: string;
+    cars: Car[];
+    constructor(id: string, lastname: string, firstname: string, cars?: Car[]) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.status = status;
+    }
+}
+ ```
+
+## TODO
  - override equatable a array property level.
 
 
-### Exemple use case
+## Exemple use cases
 ```typescript
 @Exclude()
 @Equatable<Car>({equal: (a, b) => a.id === b.id})
