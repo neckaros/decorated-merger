@@ -1,4 +1,3 @@
-import { format } from '../src/decorated-merger'
 import { Exclude, Include, Equatable } from '../src/decorators'
 
 @Exclude()

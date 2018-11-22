@@ -54,11 +54,6 @@ export const getObjectInfo = (object: any, key: string) => {
   return type
 }
 
-const mergeableMetadataKey = 'decmer:mergeable'
-export function format() {
-  return Reflect.metadata(mergeableMetadataKey, true)
-}
-
 export const merger = (merge: any, into: any, options?: MergeOptions) => {
   const allProperties = getAllPropertiesToMerge(merge, options)
   for (const property of allProperties) {
