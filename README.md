@@ -13,6 +13,18 @@ A very simple package to merge to object respecting decoration if any.
 
 ## Usage
 
+### Install
+
+Yarn:
+ ```sh
+yarn add decorated-merger
+```
+
+npm:
+ ```sh
+npm i decorated-merger
+```
+
 ### Merger
 Merger function will **merge** all _newObject_ properties **into** the source _object_ merging arrays and sub-objects, respecting all the decorators below.
  ```typescript
@@ -113,7 +125,7 @@ export class Person {
  - override equatable a array property level.
 
 
-## Exemple use cases
+## Exemple use cases (from tests)
 ```typescript
 @Exclude()
 @Equatable<Car>({equal: (a, b) => a.id === b.id})
