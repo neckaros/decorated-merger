@@ -47,6 +47,49 @@ describe('Merging', () => {
     expect(car.canUse[0]).toEqual(personA)
   })
 
+  it('String arrays should merge', () => {
+    const movieA = { title: 'test', genre: ['Comedy', 'Drama'] }
+    const movieB = { title: 'test', genre: ['Fiction', 'Drama'] }
+    merger(movieB, movieA)
+
+    expect(movieA.genre.length).toEqual(3)
+    expect(movieA.genre).toContain('Comedy')
+    expect(movieA.genre).toContain('Fiction')
+    expect(movieA.genre).toContain('Drama')
+  })
+
+  it('Number arrays should merge', () => {
+    const movieA = { title: 'test', genre: [1, 2] }
+    const movieB = { title: 'test', genre: [2, 3] }
+    merger(movieB, movieA)
+
+    expect(movieA.genre.length).toEqual(3)
+    expect(movieA.genre).toContain(1)
+    expect(movieA.genre).toContain(2)
+    expect(movieA.genre).toContain(3)
+  })
+
+  it('function arrays should merge', () => {
+    const movieA = { title: 'test', genre: [() => 'Drama'] }
+    const movieB = { title: 'test', genre: [() => 'Action'] }
+    merger(movieB, movieA)
+
+    console.log(movieA)
+
+    expect(movieA.genre.length).toEqual(2)
+    expect(movieA.genre[0]()).toEqual('Drama')
+    expect(movieA.genre[1]()).toEqual('Action')
+  })
+
+  it('Object with funct should merge', () => {
+    let movieA = { title: 'test', test: () => true }
+    const movieB = { title: 'test', to: () => true }
+    const newMovie = merger(movieB, movieA)
+
+    expect(newMovie.test).toBeDefined()
+    expect(newMovie.to).toBeDefined()
+  })
+
   it('Two simple class with exsiting array should merge', () => {
     const car = getTestCar()
     const carNew = getTestCar()

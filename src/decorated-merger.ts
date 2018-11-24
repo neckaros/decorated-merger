@@ -54,7 +54,19 @@ export const getObjectInfo = (object: any, key: string) => {
   return type
 }
 
-export const merger = (merge: any, into: any, options?: MergeOptions) => {
+const isGeneric = (object: any) => {
+  const type = typeof object
+  return type !== 'object'
+}
+
+export const merger = <T extends any, Y extends any>(
+  merge: T,
+  into: Y,
+  options?: MergeOptions
+): T & Y => {
+  if (isGeneric(merge) || isGeneric(into)) {
+    return into as T & Y
+  }
   const allProperties = getAllPropertiesToMerge(merge, options)
   for (const property of allProperties) {
     const typeNew = typeof merge
@@ -88,5 +100,5 @@ export const merger = (merge: any, into: any, options?: MergeOptions) => {
       into[property.name] = newValue
     }
   }
-  return into
+  return into as T & Y
 }
