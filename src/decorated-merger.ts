@@ -6,6 +6,7 @@ import {
   getEquatable,
   getEquatableForClass
 } from './decorators'
+export { Equatable, Exclude, Include } from './decorators'
 
 interface MergeOptions {
   group?: string
