@@ -70,12 +70,11 @@ export const merger = <T extends any, Y extends any>(
   }
   const allProperties = getAllPropertiesToMerge(merge, options)
   for (const property of allProperties) {
-    const typeNew = typeof merge
-    if (typeNew === 'undefined' || typeNew === 'function') {
-      continue
-    }
     const oldValue = into[property.name]
     const newValue = merge[property.name]
+    if (newValue === undefined) {
+      continue
+    }
     if (oldValue === undefined) {
       into[property.name] = newValue
       continue

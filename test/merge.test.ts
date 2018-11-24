@@ -90,6 +90,15 @@ describe('Merging', () => {
     expect(newMovie.to).toBeDefined()
   })
 
+  it('Undefinded in new object should not override', () => {
+    let movieA = { title: 'test', genre: ['Drama'] }
+    const movieB = { title: undefined, genre: undefined }
+    const newMovie = merger(movieB, movieA)
+
+    expect(newMovie.title).toEqual('test')
+    expect(newMovie.genre[0]).toEqual('Drama')
+  })
+
   it('Two simple class with exsiting array should merge', () => {
     const car = getTestCar()
     const carNew = getTestCar()
